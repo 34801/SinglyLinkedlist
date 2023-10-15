@@ -1,0 +1,115 @@
+import java.util.Date;
+
+// Define a Shape class
+class Shape {
+    private static int shapeIDCounter = 1;
+    private int shapeID;
+    private Date creationTime;
+
+    public Shape() {
+        this.shapeID = shapeIDCounter++;
+        this.creationTime = new Date();
+    }
+
+    public int getShapeID() {
+        return shapeID;
+    }
+
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    // You can add more methods common to all shapes here.
+}
+
+// Rectangle class
+class Rectangle extends Shape {
+    private double length;
+    private double width;
+
+    public Rectangle(double length, double width) {
+        super();
+        this.length = length;
+        this.width = width;
+    }
+
+    // Add rectangle-specific methods and properties here.
+}
+
+// Square class
+class Square extends Shape {
+    private double sideLength;
+
+    public Square(double sideLength) {
+        super();
+        this.sideLength = sideLength;
+    }
+
+    // Add square-specific methods and properties here.
+}
+
+// Triangle class
+class Triangle extends Shape {
+    private double base;
+    private double height;
+
+    public Triangle(double base, double height) {
+        super();
+        this.base = base;
+        this.height = height;
+    }
+
+    // Add triangle-specific methods and properties here.
+}
+
+// Define a Node class for the singly linked list
+class Node {
+    Shape data;
+    Node next;
+
+    public Node(Shape shape) {
+        this.data = shape;
+        this.next = null;
+    }
+}
+
+// Create a linked list for storing shapes
+class ShapeLinkedList {
+    private Node head;
+
+    public void insert(Shape shape) {
+        Node newNode = new Node(shape);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+    }
+
+    public void display() {
+        Node current = head;
+        while (current != null) {
+            Shape shape = current.data;
+            System.out.println("Shape ID: " + shape.getShapeID());
+            System.out.println("Creation Time: " + shape.getCreationTime());
+            current = current.next;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Create shapes and add them to the linked list
+        ShapeLinkedList shapeList = new ShapeLinkedList();
+        shapeList.insert(new Rectangle(5.0, 3.0));
+        shapeList.insert(new Square(4.0));
+        shapeList.insert(new Triangle(6.0, 4.0));
+
+        // Display the shape information
+        shapeList.display();
+    }
+}
